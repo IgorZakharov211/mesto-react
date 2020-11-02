@@ -2,6 +2,7 @@ import Header from '../components/header/Header';
 import Main from '../components/main/Main';
 import Footer from '../components/footer/Footer';
 import PopupWithForm from './popup_with_f/popup_with_form/PopupWithForm';
+import ImagePopup from '../components/image_popup/ImagePopup';
 
 function App() {
   return (
@@ -41,14 +42,9 @@ function App() {
         </label>
         <button className="popup__button-save" type="submit">Сохранить</button>
       </PopupWithForm>
-    <div className="popup" id="popup-card">
-      <div className="popup__container">
-        <button className="popup__button-close"></button>
-        <img src="images/no-image.jpg" alt="Фотография места" className="popup__pic" />
-        <p className="popup__subtitle"></p>
-      </div>  
+      <ImagePopup />
     </div>
-  </div>
+
   );
 }
 
