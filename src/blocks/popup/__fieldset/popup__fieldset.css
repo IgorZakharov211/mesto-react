@@ -1,0 +1,6 @@
+.popup__fieldset{
+  border: none;
+  width: calc(100% - 72px);
+  margin: 34px auto 0 auto;
+  padding: 0;
+}
