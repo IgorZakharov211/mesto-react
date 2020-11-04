@@ -1,3 +1,5 @@
+import React from 'react';
+
 function ImagePopup(){
     return(
     <div className="popup" id="popup-card">

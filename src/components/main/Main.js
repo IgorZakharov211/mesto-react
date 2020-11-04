@@ -1,6 +1,6 @@
 import React from 'react';
 import api from '../../utils/api';
-
+import Card from '../card/Card';
 
 function Main(props){
 
@@ -19,6 +19,21 @@ function Main(props){
     });
   }, [])
 
+  const [cards, setCards] = React.useState([]);
+  
+  React.useEffect(() => {
+    api.getInitialCards().then((data) =>{
+      setCards(data.map((item) => ({
+        id: item._id,
+        name: item.name,
+        link: item.link,
+        likeCount: item.likes.length
+      })));
+    })
+    .catch((err) =>{
+      console.log(err);
+    });
+  }, [])
   return(
     <main className="content">
       <section className="profile content__profile">
@@ -36,6 +51,12 @@ function Main(props){
     	<button className="profile__add-button" type="button" aria-label="Добавить" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements content__elements">
+        {
+         cards.map(({id, ...props})=>{
+           return <Card key={id} {...props} />
+         })
+        }
+      
       </section>
     </main>
   );
