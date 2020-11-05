@@ -34,6 +34,7 @@ function Main(props){
       console.log(err);
     });
   }, [])
+
   return(
     <main className="content">
       <section className="profile content__profile">
@@ -52,8 +53,8 @@ function Main(props){
       </section>
       <section className="elements content__elements">
         {
-         cards.map(({id, ...props})=>{
-           return <Card key={id} {...props} />
+         cards.map(({id, name, link, likeCount})=>{
+           return <Card key={id} name={name} link={link} likeCount={likeCount} onCardClick={props.handleCardClick}/>
          })
         }
       
