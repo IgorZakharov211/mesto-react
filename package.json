@@ -2,6 +2,7 @@
   "name": "mesto-react",
   "version": "0.1.0",
   "private": true,
+  "description": "Перенос проекта Mesto на React",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.5",
     "@testing-library/react": "^11.1.0",
@@ -34,5 +35,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "author": "Zakharov Igor"
 }

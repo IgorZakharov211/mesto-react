@@ -8,7 +8,9 @@ function Card(props){
 
   return(
     <div className="element">
-      <a className="element__link"><img src={props.link} alt={props.name} className="element__image" onClick={handleClick}/></a>
+      <a className="element__link">
+        <img src={props.link} alt={props.name} className="element__image" onClick={handleClick}/>
+      </a>
       <button className="element__remove" type="button"></button>
       <div className="element__info">
         <h2 className="element__title">{props.name}</h2>

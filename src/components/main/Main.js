@@ -45,7 +45,12 @@ function Main(props){
     	<div className="profile__text">
     	  <div className="profile__name">
     	    <h1 className="profile__title">{userName}</h1>
-    	    <button className="profile__edit-button" type="button" aria-label="Редактировать" onClick={props.onEditProfile}></button>
+          <button 
+          className="profile__edit-button" 
+          type="button" 
+          aria-label="Редактировать" 
+          onClick={props.onEditProfile}>
+          </button>
     	  </div>
     	  <p className="profile__subtitle">{userDescription}</p>
     	</div>
