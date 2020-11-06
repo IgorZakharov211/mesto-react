@@ -16,7 +16,6 @@
 * Использован **JavaScript**;
 * Использован фаеймворк [**React**](https://ru.reactjs.org/).
 
-[**Ссылка на сайт**](https://igorzakharov211.github.io/mesto-react/)
 
 ## Планы по доработке
 
