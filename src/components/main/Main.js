@@ -7,10 +7,12 @@ import Card from '../card/Card';
 function Main(props){
   const currentUser = React.useContext(CurrentUserContext);
   const [cards, setCards] = React.useState([]);
-  
+  const card = '';
+
   React.useEffect(() => {
     api.getInitialCards().then((data) =>{
       setCards(data.map((item) => ({
+        key: item._id,
         id: item._id,
         name: item.name,
         link: item.link,
@@ -22,7 +24,51 @@ function Main(props){
     .catch((err) =>{
       console.log(err);
     });
-  }, [])
+  }, []);
+  
+  function changeLike(newCard, card){
+    const newCards = cards.map((c) => {
+      if(c.id === card.id) {
+        return {
+          key: newCard._id,
+          id: newCard._id,
+          name: newCard.name,
+          link: newCard.link,
+          likes: newCard.likes,
+          owner: newCard.owner,
+          likeCount: newCard.likes.length
+        };
+      } else{ 
+        return c;
+      }
+    });
+    setCards(newCards);
+  }
+
+  function handleCardLike({card}) {
+    const isLiked = card.likes.some(i => i._id === currentUser.id);
+    if (isLiked){
+      api.deleteLike(card.id).then((newCard) => {
+        changeLike(newCard, card);
+      });
+    } else{
+      api.putLike(card.id).then((newCard) => {
+        changeLike(newCard, card);
+      });
+    }
+  } 
+
+  function handleDeleteCard(id){
+    api.deleteCard(id).then((data) => {
+      console.log(data);
+      const cardsFilter = cards.filter((item) => {
+        console.log(item);
+        return id !== item.id;
+      });
+      setCards(cardsFilter);
+    })
+  }
+
   return(
     <main className="content">
       <section className="profile content__profile">
@@ -47,7 +93,7 @@ function Main(props){
       <section className="elements content__elements">
         {
          cards.map(({id, name, link, likes, owner, likeCount})=>{
-           return <Card key={id} name={name} link={link} likes={likes} owner={owner} likeCount={likeCount} onCardClick={props.handleCardClick}/>
+           return <Card key={id} id={id} name={name} link={link} likes={likes} owner={owner} likeCount={likeCount} onCardClick={props.handleCardClick} onCardLike={handleCardLike} onDeleteCard={handleDeleteCard}/>
          })
         }
       

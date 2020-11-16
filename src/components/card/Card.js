@@ -1,8 +1,8 @@
 import React from 'react';
 import {CurrentUserContext} from '../../contexts/CurrentUserContext';
+import api from '../../utils/api';
 
 function Card(props){
-  console.log(props);
   const currentUser = React.useContext(CurrentUserContext);
   const isOwn = props.owner._id === currentUser.id;
   const cardDeleteButtonClassName = (
@@ -12,18 +12,34 @@ function Card(props){
 
   function handleClick() {
     props.onCardClick({name: props.name, link: props.link});
-  }  
+  } 
+
+  function handleCardLike(){
+    const card = {
+      key: props.id,
+      id: props.id,
+      name: props.name,
+      link: props.link,
+      likes: props.likes,
+      owner: props.owner,
+      likeCount: props.likes.length}
+    props.onCardLike({card});
+  }
+
+  function handleDeleteCard(){
+    props.onDeleteCard(props.id);
+  }
 
   return(
     <div className="element">
       <a className="element__link">
         <img src={props.link} alt={props.name} className="element__image" onClick={handleClick}/>
       </a>
-      <button className={cardDeleteButtonClassName} type="button"></button>
+      <button className={cardDeleteButtonClassName} type="button" onClick={handleDeleteCard}></button>
       <div className="element__info">
         <h2 className="element__title">{props.name}</h2>
         <div className="element__like-container">
-          <button className={cardLikeButtonClassName} type="button"></button>
+          <button className={cardLikeButtonClassName} type="button" onClick={handleCardLike}></button>
           <p className="element__like-count">{props.likeCount}</p>
         </div>
       </div>
