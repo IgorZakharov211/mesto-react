@@ -4,6 +4,8 @@ import Header from '../components/header/Header';
 import Main from '../components/main/Main';
 import Footer from '../components/footer/Footer';
 import PopupWithForm from './popup_with_form/PopupWithForm';
+import EditProfilePopup from './edit_profile_popup/EditProfilePopup';
+import EditAvatarPopup from './edit_avatar_popup/EditAvatarPopup';
 import ImagePopup from '../components/image_popup/ImagePopup';
 import api from '../utils/api';
 
@@ -49,6 +51,20 @@ function App() {
     setSelectedCard({name: name, link: link});
   }
 
+  function handleUpdateUser({name, about}){
+    api.patchMyInfo(name, about).then((res) => {
+      setCurrentUser({id: res._id, name: res.name, about: res.about, avatar: res.avatar});
+      closeAllPopups();
+    })
+  }
+
+  function handleUpdateAvatar({avatar}){
+    api.patchMyAvatar(avatar).then((res) => {
+      setCurrentUser({id: res._id, name: res.name, about: res.about, avatar: res.avatar});
+      closeAllPopups();
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     <div className="page">
@@ -60,35 +76,7 @@ function App() {
       handleCardClick={handleCardClick}
       />
       <Footer />
-      <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups}>
-        <label className="popup__field">
-          <input 
-          type="text" 
-          className="popup__input" 
-          placeholder="Имя" 
-          name="name" 
-          required 
-          id="name-input" 
-          minLength="2" 
-          maxLength="40" 
-          />
-          <span className="popup__input-error" id="name-input-error"></span> 
-        </label>
-        <label className="popup__field">
-          <input 
-          type="text" 
-          className="popup__input" 
-          placeholder="Занятие" 
-          name="job" 
-          required 
-          id="job-input" 
-          minLength="2" 
-          maxLength="200" 
-          />
-          <span className="popup__input-error" id="job-input-error"></span> 
-        </label>
-        <button className="popup__button-save" type="submit">Сохранить</button>
-      </PopupWithForm>
+      <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
       <PopupWithForm name="place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}>
         <label className="popup__field">
           <input 
@@ -119,20 +107,7 @@ function App() {
       <PopupWithForm name="confirm" title="Вы уверены?" isOpen={false} onClose={closeAllPopups}>
         <button className="popup__button-save" type="submit">Да</button>
       </PopupWithForm>
-      <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups}>
-        <label className="popup__field">
-          <input 
-          type="url" 
-          className="popup__input" 
-          placeholder="Ссылка на изображение" 
-          name="url" 
-          required 
-          id="url-inputAvatar" 
-          />
-          <span className="popup__input-error" id="url-inputAvatar-error"></span>
-        </label>
-        <button className="popup__button-save" type="submit">Сохранить</button>
-      </PopupWithForm>
+      <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
       <ImagePopup card={selectedCard} onClose={closeAllPopups} isOpen={isCardPopupOpen}/>
     </div>
     </CurrentUserContext.Provider>
