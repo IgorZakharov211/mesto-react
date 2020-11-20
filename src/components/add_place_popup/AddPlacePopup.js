@@ -2,8 +2,8 @@ import React from 'react';
 import PopupWithForm from '../popup_with_form/PopupWithForm';
 
 function AddPlacePopup(props){
-  const [title, setTitle] = React.useState('Фотография');
-  const [link, setLink] = React.useState('../../images/no-image.jpg');
+  const [title, setTitle] = React.useState('');
+  const [link, setLink] = React.useState('');
 
   function handleTitleChange(e){
     setTitle(e.target.value);
@@ -32,6 +32,7 @@ function AddPlacePopup(props){
           id="title-input"
           minLength="1" 
           maxLength="30" 
+          value={title}
           onChange={handleTitleChange}
            />
           <span className="popup__input-error" id="title-input-error"></span>
@@ -44,6 +45,7 @@ function AddPlacePopup(props){
           name="url" 
           required 
           id="url-input"
+          value={link}
           onChange={handleLinkChange} 
           />
           <span className="popup__input-error" id="url-input-error"></span>

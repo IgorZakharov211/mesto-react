@@ -18,8 +18,6 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({name: 'Фотография', link: '../images/no-image.jpg'});
   const [currentUser, setCurrentUser] = React.useState({name: 'Имя', about: 'Профессия', avatar: '../images/no-image.jpg'});
   const [cards, setCards] = React.useState([]);
-  const card = '';
-
   React.useEffect(() => {
     api.getInitialCards().then((data) =>{
       setCards(data.map((item) => ({
@@ -62,10 +60,16 @@ function App() {
     if (isLiked){
       api.deleteLike(card.id).then((newCard) => {
         changeLike(newCard, card);
+      })
+      .catch((err) =>{
+        console.log(err);
       });
     } else{
       api.putLike(card.id).then((newCard) => {
         changeLike(newCard, card);
+      })
+      .catch((err) =>{
+        console.log(err);
       });
     }
   } 
@@ -78,6 +82,9 @@ function App() {
       });
       setCards(cardsFilter);
     })
+    .catch((err) =>{
+      console.log(err);
+    });
   }
 
   React.useEffect(() => {
@@ -119,6 +126,9 @@ function App() {
       setCurrentUser({id: res._id, name: res.name, about: res.about, avatar: res.avatar});
       closeAllPopups();
     })
+    .catch((err) =>{
+      console.log(err);
+    });
   }
 
   function handleUpdateAvatar({avatar}){
@@ -126,6 +136,9 @@ function App() {
       setCurrentUser({id: res._id, name: res.name, about: res.about, avatar: res.avatar});
       closeAllPopups();
     })
+    .catch((err) =>{
+      console.log(err);
+    });
   }
 
   function handleAddPlaceSubmit({title, link}){
@@ -142,6 +155,9 @@ function App() {
       setCards([newCard, ...cards])
       closeAllPopups();
     })
+    .catch((err) =>{
+      console.log(err);
+    });
   }
 
   return (

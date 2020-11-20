@@ -2,7 +2,6 @@ import React from 'react';
 import PopupWithForm from '../popup_with_form/PopupWithForm';
 
 function EditAvatarPopup(props){
-  const [avatar, setAvatar] = React.useState('../../images/no-image.jpg');
   const avatarRef = React.useRef();
 
   function handleSubmit(e) {
