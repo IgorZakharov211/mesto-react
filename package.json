@@ -1,6 +1,7 @@
 {
   "name": "mesto-react",
   "version": "0.1.0",
+  "homepage": "https://igorzakharov211.github.io/mesto-react/",
   "private": true,
   "description": "Перенос проекта Mesto на React",
   "dependencies": {
